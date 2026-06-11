@@ -1,14 +1,5 @@
 #!/bin/bash
 set -e
 
-echo "Running stop_container.sh"
-docker ps
-
-containers=$(docker ps -q)
-echo "Containers: $containers"
-
-if [ -n "$containers" ]; then
-  docker rm -f $containers
-else
-  echo "No running containers found"
-fi
+echo "Stopping and removing all containers..."
+docker rm -f $(docker ps -aq) 2>/dev/null || true
